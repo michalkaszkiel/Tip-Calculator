@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-
-function YourBill({ paragraphText, newValue }) {
-    const [selectedValue, setSelectedValue] = useState("dissatisfied");
-
+function YourBill({ paragraphText, newValue, selectedValue }) {
     const handleChange = (e) => {
         const value = Number(e.target.value);
-        setSelectedValue(value);
+        // setSelectedValue(value);
         newValue(value);
     };
 

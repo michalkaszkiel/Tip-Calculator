@@ -5,11 +5,12 @@ import TotalBill from "./comp/TotalBill";
 import Reset from "./comp/Reset";
 
 function App() {
-    const [value1, setValue1] = useState("");
-    const [value2, setValue2] = useState("");
+    const [value1, setValue1] = useState(0);
+    const [value2, setValue2] = useState(0);
     const [percentage, setPercentage] = useState(0);
     const [percentage2, setPercentage2] = useState(0);
     const [bill, setBill] = useState(0);
+
     function getBill(billValue) {
         setBill(Number(billValue));
     }
@@ -30,26 +31,32 @@ function App() {
         setValue1(0);
         setValue2(0);
         setPercentage(0);
+        setPercentage2(0);
         setBill(0);
     };
 
     const tip = percentage > 0 ? (bill * percentage) / 100 : 0;
     const tip2 = percentage2 > 0 ? (bill * percentage2) / 100 : 0;
-    const total = bill + tip + tip2;
+    const preTotal = bill + tip + tip2;
+    const total = preTotal.toFixed(2);
 
     return (
         <div className="App">
-            <Experience getBill={getBill} />
-            <YourBill
-                newValue={handleValue1Change}
-                paragraphText={"How did you like it?"}
-            />
-            <YourBill
-                newValue={handleValue2Change}
-                paragraphText={"How your friends like it?"}
-            />
-            <TotalBill bill={bill} total={total} tip={tip} tip2={tip2} />
-            <Reset reset={reset} />
+            <div className="container">
+                <Experience getBill={getBill} />
+                <YourBill
+                    newValue={handleValue1Change}
+                    paragraphText={"How did you like it?"}
+                    selectedValue={value1}
+                />
+                <YourBill
+                    newValue={handleValue2Change}
+                    paragraphText={"How your friends like it?"}
+                    selectedValue={value2}
+                />
+                <TotalBill bill={bill} total={total} tip={tip} tip2={tip2} />
+                <Reset reset={reset} />
+            </div>
         </div>
     );
 }
